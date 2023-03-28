@@ -43,7 +43,7 @@
 		![](images/head_default.png)
 		![](images/head_left.png)
 
-	- наклоны шеи вперёд и назад
+	- наклоны головы вперёд и назад
 
 		![](images/neck_default.png)
 		![](images/neck_bend_backwards.png)
@@ -63,6 +63,22 @@
 		![](images/neck2_move_forwards.png)
 		![](images/neck2_default.png)
 		![](images/neck2_move_backwards.png)
+
+
+	- наклонять голову вверх и вниз смотря на одну и ту же точку в пространстве (https://www.youtube.com/watch?v=WjfvF6I_NhY)
+
+		![](images/head_default.png)
+		![](images/head_training1_1.png)
+		![](images/head_default.png)
+		![](images/head_training1_2.png)
+
+	- крутить головой влево и вправо смотря на одну и ту же точку в пространстве (https://www.youtube.com/watch?v=WjfvF6I_NhY)
+
+		![](images/head_default.png)
+		![](images/head_training2_1.png)
+		![](images/head_default.png)
+		![](images/head_training2_2.png)
+
 
 
 - ***Большой перерыв*** полностью блокирует все экраны. Правда, при необходимости блокировку можно отменить не дожидаясь её конца через контекстное меню в верхней части любого блокирующего окна.

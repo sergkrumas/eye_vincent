@@ -110,6 +110,12 @@ class Globals():
         # 9
         ShortBreakInfo(50, 'вытягивание шеи вперёд и назад', 3,
                 ('neck2_default.png', 'neck2_move_forwards.png', 'neck2_default.png', 'neck2_move_backwards.png')),
+        # 10
+        ShortBreakInfo(60, 'наклонять голову вверх и вниз смотря на одну и ту же точку в пространстве', 3,
+                ('head_default.png', 'head_training1_1.png', 'head_default.png', 'head_training1_2.png')),
+        # 11
+        ShortBreakInfo(60, 'крутить головой влево и вправо смотря на одну и ту же точку в пространстве', 3,
+                ('head_default.png', 'head_training2_1.png', 'head_default.png', 'head_training2_2.png')),
 
     )
 
