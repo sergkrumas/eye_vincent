@@ -776,6 +776,7 @@ class ForegroundWindow(QWidget):
             }
             """
             w.setStyleSheet(style)
+            w.contextMenuEvent = self.contextMenuEvent
             layout = QVBoxLayout()
             layout.setContentsMargins(200, int(self.rect().height()/2)+100, 200, 0)
             layout.addWidget(w)
@@ -924,6 +925,15 @@ class ForegroundWindow(QWidget):
 
         if not self.is_long_duration():
             painter.setClipping(False)
+
+
+        now = datetime.datetime.now()
+        now = str(now).split(".")[0].replace(" ", "\n")
+        painter.setPen(QPen(Qt.gray))
+        r = self.rect()
+        r.setBottom(r.bottom()-500)
+        painter.drawText(r, Qt.AlignCenter | Qt.AlignVCenter, now)
+
         painter.end()
 
     def contextMenuEvent(self, event):
@@ -947,7 +957,9 @@ class ForegroundWindow(QWidget):
         }""");
         halt = contextMenu.addAction("Закрыть")
         halt.setIconVisibleInMenu(False)
-        action = contextMenu.exec_(self.mapToGlobal(event.pos()))
+        # pos = self.mapToGlobal(event.pos())
+        pos = QCursor().pos()
+        action = contextMenu.exec_(pos)
         if action == halt:
             app = QApplication.instance()
             app.exit()
@@ -1172,9 +1184,10 @@ def interval_handler():
                 # переносим на 10 минут
                 hide_dialog()
             else:
-                show_tray_notification()
-                show_dialog(True)
-                Globals.is_notifications_allowed = False
+                if Globals.check_user_activity():
+                    show_tray_notification()
+                    show_dialog(True)
+                    Globals.is_notifications_allowed = False
         else:
             Globals.long_break_soon = False
         if Globals.long_break_running:
