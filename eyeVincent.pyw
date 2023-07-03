@@ -1213,7 +1213,10 @@ def interval_handler():
     if time_passed_2 > Globals.SHORT_BREAK_INTERVAL:
         if not short_blocked:
             Globals.short_break_tstamp = time.time() + Globals.SHORT_BREAK_DURATION
-            call_app_with_arg(Globals.SHORT_BREAK_ARG)
+            # для предотвращения одновременного появления вместе
+            # с напоминанием большого перерыва
+            if seconds_left_1 > (30 + Globals.SHORT_BREAK_DURATION):
+                call_app_with_arg(Globals.SHORT_BREAK_ARG)
             Globals.short_break_last_run_tstamp = time.time()
     elif time_passed_2 > 0:
         pass
