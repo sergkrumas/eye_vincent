@@ -1247,11 +1247,11 @@ def excepthook(exc_type, exc_value, exc_tb):
     datetime_string = time.strftime("%A, %d %B %Y %X").capitalize()
     dt = "{0} {1} {0}".format(" "*15, datetime_string)
     dt_framed = "{0}\n{1}\n{0}\n".format("-"*len(dt), dt)
-    with open("crush.log", "a+", encoding="utf8") as crush_log:
-        crush_log.write("\n"*10)
-        crush_log.write(dt_framed)
-        crush_log.write("\n")
-        crush_log.write(traceback_lines)
+    with open("crash.log", "a+", encoding="utf8") as crash_log:
+        crash_log.write("\n"*10)
+        crash_log.write(dt_framed)
+        crash_log.write("\n")
+        crash_log.write(traceback_lines)
     print(traceback_lines)
     app = QApplication.instance()
     sti = app.property('sti')
