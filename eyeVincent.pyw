@@ -400,7 +400,7 @@ class StylizedUIBase():
         close_btn_rect = self.get_close_btn_rect()
         top_right_corner = self.rect().topRight()
         diff = top_right_corner - self.mapped_cursor_pos()
-        distance = math.sqrt(pow(diff.x(), 2) + pow(diff.y(), 2))
+        distance = QVector2D(diff).length()
         size = close_btn_rect.width()/2
         client_area = QRect(QPoint(close_btn_rect.x(), 0), QSize(int(size), int(size)))
         return distance < self.CLOSE_BUTTON_RADIUS and \
