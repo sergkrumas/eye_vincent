@@ -684,7 +684,7 @@ class StylizedDialog(QWidget, StylizedUIBase):
             data1 = Globals.info_str['long'][0]
             data2 = Globals.info_str['short']
             if Globals.is_there_any_fullscreen_window:
-                fullscreen_info = "Сейчас открыто полноэкранное приложение, и в таком случае напоминания о перерывах не будет"
+                fullscreen_info = "Сейчас открыто полноэкранное приложение, это значит, что напоминаний о перерывах не будет пока оно открыто"
             else:
                 fullscreen_info = ""
             s = f'{Globals.TITLE}\n\n{fullscreen_info}\n\n{data1}\n{data2}'
