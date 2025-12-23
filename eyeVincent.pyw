@@ -542,7 +542,7 @@ class StylizedDialog(QWidget, StylizedUIBase):
             self.button_exit.clicked.connect(self.exit_handler)
             self.button_exit.setObjectName("quit")
 
-            self.button_suspend = QPushButton(f'Приостановить')
+            self.button_suspend = QPushButton(self.get_suspend_but_title())
             self.button_suspend.setIcon(Globals.pause_icon)
             self.button_suspend.setCursor(Qt.PointingHandCursor)
             self.button_suspend.setStyleSheet(self.button_style)
@@ -596,20 +596,25 @@ class StylizedDialog(QWidget, StylizedUIBase):
         app = QApplication.instance()
         default_tray_icon = app.property("keep_ref_to_icon")
         sti = app.property('sti')
+        button_text = self.get_suspend_but_title()
         if Globals.paused:
-            button_text = "Возобновить"
             icon = Globals.play_icon
             sti.setIcon(Globals.paused_tray_icon)
             Globals.delta_long = time.time() - Globals.long_break_tstamp
             Globals.delta_short = time.time() - Globals.short_break_tstamp
         else:
-            button_text = "Приостановить"
             icon = Globals.pause_icon
             sti.setIcon(default_tray_icon)
             Globals.long_break_tstamp = time.time() - Globals.delta_long
             Globals.short_break_tstamp = time.time() - Globals.delta_short
         self.button_suspend.setIcon(icon)
         self.button_suspend.setText(button_text)
+
+    def get_suspend_but_title(self):
+        if Globals.paused:
+            return "Возобновить"
+        else:
+            return "Приостановить"
 
     def exit_handler(self):
         self.hide()
