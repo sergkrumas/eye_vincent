@@ -35,6 +35,8 @@ import datetime
 import threading
 from collections import namedtuple
 
+import winreg
+
 ShortBreakInfo = namedtuple('ShortBreakInfo', 'probability name slow_factor images')
 
 from on_windows_startup import is_app_in_startup, add_to_startup, remove_from_startup
@@ -1312,6 +1314,27 @@ def listening():
     listener_mouse = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
     listener_mouse.start()
 
+def is_windows_dark_mode():
+    try:
+        key_path = r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+        registry_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, key_path, 0, winreg.KEY_READ)
+        value, reg_type = winreg.QueryValueEx(registry_key, "AppsUseLightTheme")
+        winreg.CloseKey(registry_key)
+        #value of 0 means Dark mode, 1 means Light mode
+        return value == 0
+    except WindowsError:
+        # key is not exists, because e.g., very old Windows version
+        # light mode is default
+        return False
+
+def change_color_of_non_transparent_pixels(pixmap, color):
+    p = QPainter()
+    p.begin(pixmap)
+    p.setCompositionMode(QPainter.CompositionMode_SourceIn)
+    p.fillRect(pixmap.rect(), color)
+    p.end()
+    return pixmap
+
 def main():
     os.chdir(os.path.dirname(__file__))
     sys.excepthook = excepthook
@@ -1326,9 +1349,12 @@ def main():
 
     appid = 'sergei_krumas.eye_vincent.client.1'
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(appid)
-    path_icon = "eyeVincentIcon.png"
-    icon = None
-    icon = QIcon(path_icon)
+    path_icon = os.path.join(os.path.dirname(__file__), "eyeVincentTrayIcon.png")
+    pixmap = change_color_of_non_transparent_pixels(
+        QPixmap(path_icon), 
+        Qt.white if is_windows_dark_mode() else Qt.black#QColor(220, 50, 50)
+    )
+    icon = QIcon(pixmap)
     app.setProperty("keep_ref_to_icon", icon)
     app.setWindowIcon(icon)
     timer = QTimer()
