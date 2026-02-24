@@ -867,7 +867,7 @@ class ForegroundWindow(QWidget):
     def get_estimated_time_str(self):
         delta = self.end_time - time.time()
         if self.is_long_duration():
-            info = "Время Большого Перерыва\nДелай планку!"
+            info = "Время Большого Перерыва"
         else:
             # info = self.remind_info
             info = ""
@@ -948,7 +948,7 @@ class ForegroundWindow(QWidget):
 
 
         now = datetime.datetime.now()
-        now = str(now).split(".")[0].replace(" ", "\n")
+        now = str(now).split(".")[0].replace(" ", "\n").replace("-", " ")
         painter.setPen(QPen(Qt.gray))
         r = self.rect()
         r.setBottom(r.bottom()-500)
