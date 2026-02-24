@@ -479,28 +479,41 @@ class StylizedDialog(QWidget, StylizedUIBase):
         main_layout.addWidget(self.label)
         hor_layout = QVBoxLayout()
 
-
         checkbox_style = """
             QCheckBox {
+                font-size: 11pt;
                 font-family: 'Consolas';
                 color: white;
-                font-size: 18px;
                 font-weight: normal;
             }
+            QCheckBox::indicator {
+                width: 40px;
+                height: 20px;
+            }
             QCheckBox::indicator:unchecked {
-                background: gray;
+                /*background: gray;*/
+                image: url(resources/switch_off.png);
             }
             QCheckBox::indicator:checked {
-                background: green;
+                /*background: green;*/
+                image: url(resources/switch_on.png);
             }
             QCheckBox:checked {
-                background-color: rgba(150, 150, 150, 50);
+                /* background-color: rgba(150, 150, 150, 50);*/
                 color: rgb(100, 255, 100);
             }
             QCheckBox:unchecked {
-                color: gray;
+                color: white;
+            }
+            QCheckBox:disabled {
+                background: rgba(127, 127, 127, 10);
+                color: rgba(127, 127, 127, 127);
+            }
+            QCheckBox::indicator:disabled {
+                background: black;
             }
         """
+
 
         if not self.notification_mode:
             self.chbx_ = QCheckBox("Запускать при старте Windows")
